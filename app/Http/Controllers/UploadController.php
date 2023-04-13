@@ -14,6 +14,7 @@ class UploadController extends Controller
         ]);
         $imageName = time() . '.' . $request->image->extension();
         $imagePath = "images/" . $imageName;
+        
         $request->image->move(public_path('images'), $imageName);
         $upload = Upload::create(array_merge($validated,[
             'image'=>$imagePath
