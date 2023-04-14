@@ -13,11 +13,10 @@ class UploadController extends Controller
             'image'=> 'required|image'
         ]);
         $imageName = time() . '.' . $request->image->extension();
-        $imagePath = "images/" . $imageName;
-        
-        $request->image->move(public_path('images'), $imageName);
+        $imagePath = "public/images/";
+        $request->file('image')->storeAs($imagePath, $imageName);
         $upload = Upload::create(array_merge($validated,[
-            'image'=>$imagePath
+            'image'=> $imageName
         ]));
         return response()->json([
             'upload'=> $upload
